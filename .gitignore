@@ -1,0 +1,50 @@
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Model files
+*.pkl
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# PyCharm
+.idea/
+
+# Environment variables
+.env
+
+# Logs
+*.log
+
+# Temporary files
+temp/
+tmp/
+
+# Large datasets (optional)
+data/raw/*.csv
+
+# Build artifacts
+dist/
+build/
+
+# Matplotlib cache
+.matplotlib/
+
+# pytest
+.pytest_cache/
+
+# mypy
+.mypy_cache/
