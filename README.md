@@ -2,32 +2,41 @@
 
 ## Overview
 
-This project is an end-to-end machine learning system for predicting apartment prices in Hyderabad using XGBoost regression and SHAP explainability.
+This project is an end-to-end Machine Learning application for predicting apartment prices in Hyderabad using XGBoost Regression and SHAP Explainability.
 
-The project focuses not only on prediction accuracy but also on model interpretability, feature attribution, and business-level insights.
+The application combines:
+- machine learning
+- explainable AI
+- interactive web deployment
 
-The model learns pricing patterns from:
-- apartment area
-- location
-- geographic coordinates
-- amenities
-- resale information
+using Streamlit.
 
-SHAP (SHapley Additive exPlanations) is used to explain both:
-- global model behavior
-- local prediction decisions
+The system allows users to:
+- enter apartment details
+- predict apartment prices
+- understand why the model made a prediction using SHAP explanations
 
 ---
 
-# Problem Statement
+# Project Features
 
-Real-estate pricing depends on multiple interacting factors such as:
-- property size
-- premium locations
-- amenities
-- geographic positioning
+## Machine Learning
+- XGBoost Regressor
+- Log-transformed target variable
+- Feature engineering
+- One-hot encoding
 
-The goal of this project is to build an explainable regression model capable of learning these pricing relationships while providing transparent feature-level explanations.
+## Explainable AI (XAI)
+- SHAP TreeExplainer
+- Global feature importance
+- Local prediction explanations
+- Waterfall plots
+
+## Streamlit Web Application
+- Interactive sidebar inputs
+- Real-time predictions
+- Dynamic SHAP visualizations
+- User-friendly dashboard
 
 ---
 
@@ -39,7 +48,9 @@ The goal of this project is to build an explainable regression model capable of 
 - Scikit-learn
 - XGBoost
 - SHAP
+- Streamlit
 - Matplotlib
+- Joblib
 
 ---
 
@@ -48,20 +59,21 @@ The goal of this project is to build an explainable regression model capable of 
 Dataset contains:
 - 2276 apartment records
 - 44 original features
-- pricing and amenity information
-- location and geo-coordinate features
+- location and geo-coordinate data
+- apartment amenities
+- pricing information
 
 ### Important Features
 - area
 - no_of_bedrooms
+- location
+- city
 - latitude
 - longitude
-- location
-- swimmingpool
 - gymnasium
-- powerbackup
+- swimmingpool
 - clubhouse
-- liftavailable
+- powerbackup
 
 Target Variable:
 - `log_price`
@@ -71,38 +83,40 @@ Target Variable:
 # Machine Learning Pipeline
 
 ## 1. Data Preprocessing
-- handled categorical variables using one-hot encoding
-- separated features and target
+- removed target leakage
+- categorical encoding using `pd.get_dummies()`
 - train-test split
+- feature alignment for deployment consistency
 
 ## 2. Model Training
 XGBoost Regressor used for:
 - nonlinear learning
-- feature interaction handling
-- strong tabular data performance
+- handling feature interactions
+- high tabular-data performance
 
 ## 3. Explainability
 SHAP TreeExplainer used for:
+- feature attribution
 - global explainability
 - local explainability
-- feature attribution analysis
 
 ---
 
 # SHAP Explainability
 
 ## Global Explainability
-SHAP summary plots revealed that:
-- apartment area is the strongest price driver
-- latitude and longitude significantly influence pricing
-- premium locations such as Hitech City and Jubilee Hills increase predictions
-- luxury amenities contribute smaller but meaningful effects
+SHAP summary plots showed:
+- apartment area is the strongest driver of price
+- latitude and longitude strongly affect pricing
+- premium locations increase predictions
+- amenities have smaller but meaningful effects
 
 ## Local Explainability
-Waterfall plots explain individual apartment predictions by decomposing:
+Waterfall plots explain:
 - baseline prediction
 - positive feature contributions
 - negative feature contributions
+- final prediction value
 
 SHAP additive property:
 
@@ -110,13 +124,25 @@ prediction = baseline + sum(feature contributions)
 
 ---
 
-# Results
+# Streamlit Application
 
-## Key Insights
-- larger apartments strongly increase predicted prices
-- premium Hyderabad locations significantly affect valuation
-- geo-coordinates successfully capture spatial pricing behavior
-- amenities have secondary influence compared to location and area
+The Streamlit application allows users to:
+- select apartment features
+- generate price predictions
+- visualize SHAP explanations interactively
+
+### Features Included
+- sidebar input widgets
+- model prediction
+- price conversion from log scale
+- SHAP waterfall plot
+- responsive layout using columns
+
+Run locally:
+
+```bash
+streamlit run app/streamlit_app.py
+```
 
 ---
 
@@ -125,17 +151,22 @@ prediction = baseline + sum(feature contributions)
 ```bash
 hyderabad-house-price-prediction-xgboost-shap/
 │
+├── app/
+│   └── streamlit_app.py
+│
+├── models/
+│   ├── xgb_model.pkl
+│   └── training_columns.pkl
+│
 ├── notebooks/
-│   ├── week8_day1_shap.ipynb
+│   └── week8_day1_shap.ipynb
 │
 ├── plots/
 │   ├── shap_summary.png
-│   ├── shap_dependence_plot.png
-│   ├── waterfall_plot.png
+│   ├── shap_bar.png
+│   └── waterfall_plot.png
 │
 ├── src/
-│
-├── models/
 │
 ├── requirements.txt
 ├── README.md
@@ -144,41 +175,61 @@ hyderabad-house-price-prediction-xgboost-shap/
 
 ---
 
-# Example SHAP Visualizations
+# Example Workflow
 
-## SHAP Summary Plot
-Shows:
-- feature importance
-- feature impact direction
-- feature value distribution
-
-## SHAP Waterfall Plot
-Explains:
-- individual apartment prediction
-- positive and negative feature pushes
+1. User enters apartment details
+2. Streamlit app preprocesses inputs
+3. XGBoost predicts log price
+4. Prediction converted back to actual price
+5. SHAP explains prediction contributions
+6. Waterfall plot displayed to user
 
 ---
 
-# Future Improvements
-
-- Streamlit deployment
-- FastAPI inference API
-- MLflow experiment tracking
-- Docker containerization
-- drift detection monitoring
-- CI/CD pipeline integration
-
----
-
-# Learning Outcomes
+# Key Learning Outcomes
 
 This project demonstrates:
 - regression modeling
 - feature engineering
 - explainable AI (XAI)
-- SHAP interpretation
-- business-focused ML storytelling
-- end-to-end ML workflow
+- Streamlit deployment
+- model serialization
+- ML application architecture
+- prediction interpretability
+
+---
+
+# Future Improvements
+
+- Streamlit Cloud deployment
+- FastAPI integration
+- MLflow experiment tracking
+- Docker containerization
+- drift detection
+- CI/CD pipeline
+- automated retraining
+
+---
+
+# Installation
+
+Clone repository:
+
+```bash
+git clone <your-repo-url>
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Run application:
+
+```bash
+streamlit run app/streamlit_app.py
+```
 
 ---
 
@@ -189,4 +240,4 @@ Mohammed Mateen
 Aspiring Machine Learning & Data Science Engineer focused on:
 - explainable AI
 - production ML systems
-- deployment-ready machine learning projects
+- deployment-ready machine learning applications
