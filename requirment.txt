@@ -8,3 +8,6 @@ seaborn
 jupyter
 notebook
 ipykernel
+mlflow
+fastapi
+uvicorn

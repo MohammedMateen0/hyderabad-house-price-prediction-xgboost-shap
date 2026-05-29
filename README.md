@@ -138,6 +138,24 @@ The Streamlit application allows users to:
 - SHAP waterfall plot
 - responsive layout using columns
 
+## MLOps Components
+
+### MLflow
+- Experiment tracking
+- Parameter logging
+- Metric logging
+- Artifact management
+
+### FastAPI
+- REST API serving
+- Interactive Swagger documentation
+- Real-time prediction endpoint
+
+### Production Concepts
+- Data drift monitoring
+- Model versioning
+- Deployment architecture
+
 Run locally:
 
 ```bash
@@ -151,11 +169,17 @@ streamlit run app/streamlit_app.py
 ```bash
 hyderabad-house-price-prediction-xgboost-shap/
 │
+├── api/
+│   └── main.py
+│
+├── 
 ├── app/
 │   └── streamlit_app.py
 │
 ├── models/
 │   ├── xgb_model.pkl
+│   ├── X_test.pkl
+│   ├── y_test.pkl
 │   └── training_columns.pkl
 │
 ├── notebooks/
@@ -167,6 +191,7 @@ hyderabad-house-price-prediction-xgboost-shap/
 │   └── waterfall_plot.png
 │
 ├── src/
+│   └── mlflow_tracking.py
 │
 ├── requirements.txt
 ├── README.md
